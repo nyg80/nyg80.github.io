@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>Chrome Extension for Tracking Typos</title>
+</head>
+<body style='background-color:LightGray;font-family:Arial, Helvetica, sans-serif;'>
+<div style='width:800px; margin-left:auto; margin-right:auto;background-color:white;padding:30px;'>
+<h3>Chrome Extension to Document Typos</h3>
+<h4>The 'Why'</h4>
+<p>I see typos everywhere I go.  So, I decided to start a proofreading business, but with no prior clients I wanted a "portfolio" of typos that I had seen, including screenshots.  I wanted a quick, easy, and low-friction way to add new material to this portfolio.</p>
+
+<h4>The 'How'</h4>
+
+A Chrome browser extension that works via the context menu, for highlighted typo text.  This was built with Javascript and HTML. A publicly viewable backend to display the typos, their corrections, and the screenshots.  This was built using PHP and MySQL.
+
+<h4>The Demo Video</h4>
+
+- youtube embedded video -
+
+<h4>The Code</h4>
+
+<a href='./typotracker-extension.zip' >Click here to download a zip file containing both the Chrome extension code and the backend code</a>.
+
+<h4>Assumptions and Known Shortcomings</h4>
+
+<p>The backend code has absolutely no protection/data sanitization.  If I were deploying this on a public facing server I would implement several input data checks, as well as an IP-based whitelist.  The screenshot taken is the entire contents of the browser window, it would be better if it was just a couple hundred pixels in both directions from the highlighted text.  The screenshot data is stored in the database as the contents of the image file, it would be better if the screenshot file was stored on the server and the database simply contained the filepath for it.</p>
+
+<h4>Possible Expansion</h4>
+
+<p>One idea I had to build this out, was to allow anyone to submit typos.  This would be a sort of crowdsourcing service, where end users could submit errors from any website on the internet.  Customers could pay to receive notifications of new typos found on their sites, perhaps even auto-correction if they so choose.  This of course would require some sort of vetting process for submitters, perhaps a reputation system.  Not only would this system need to be redundant against vandalism, its quite possible that users with poor grammar think they encounter an error when there is none.</p>
+
+
+
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69463665-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

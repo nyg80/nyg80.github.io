@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>AES Visualizer Step by Step in Javascript</title>
+</head>
+<body style='background-color:LightGray;font-family:Arial, Helvetica, sans-serif;'>
+<div style='width:800px; margin-left:auto; margin-right:auto;background-color:white;padding:30px;'>
+<h3>Step-Through Visualizer of AES</h3>
+<h4>The 'Why'</h4>
+<p>I took a class on encryption during college, and we had assignments to encrypt data by hand.  I wished something like this existed when I would encounter problems where my output did not match the answer key.  So I 'ate my own dog food' and built this.</p>
+
+<h4>The 'How'</h4>
+
+<p>HTML and vanilla Javascript.</p>
+
+<h4>The Demo/Code</h4>
+
+<p><a href='./aes_visualizer.html' >Click here to use the AES step through tool</a>.  To see the code powering it, simply right click on the page and view the page source.</p>
+
+<h4>Assumptions and Known Shortcomings</h4>
+
+<p>I assume that the end user knows about hexadecimal notation, versus binary or decimal.  I don't do any validation on the input, the end user could put in 0xGG for any of the hex fields and they won't get any kind of warning.  The function <em>restOfSteps</em> doesn't work correctly when called with the parameter <em>round</em> = 9.</p>
+
+<h4>Possible Expansion</h4>
+
+<p>Allow input and output to be in binary, or decimal, or octal notation.  Add support for 192- and 256-bit keys.  Add a page that explains and steps through the <a href='https://en.wikipedia.org/wiki/Rijndael_key_schedule' target='_blank' title='Rijndael Key Expansion on Wikipedia' >Key Expansion process</a>.</p>
+
+
+
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69463665-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

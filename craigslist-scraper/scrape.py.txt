@@ -1,0 +1,97 @@
+from bs4 import BeautifulSoup
+import urllib2
+from datetime import datetime, timedelta, date
+import time
+import os
+import random
+
+#taken from  http://stackoverflow.com/a/26747854/5241853
+def readlines_reverse(filename):
+    with open(filename) as qfile:
+        qfile.seek(0, os.SEEK_END)
+        position = qfile.tell()
+        line = ''
+        while position >= 0:
+            qfile.seek(position)
+            next_char = qfile.read(1)
+            if next_char == "\n":
+                yield line[::-1]
+                line = ''
+            else:
+                line += next_char
+            position -= 1
+        yield line[::-1]
+
+
+#pull in list of subdomains, create array of them
+subdomains = [line.rstrip('\n') for line in open('subdomains.txt')]
+
+keywords = ['edit','proofread','transcri']
+
+yesterday = date.today() - timedelta(days=1)
+
+#open the output file for writing
+filename = "./output/" + str(time.strftime("%Y-%m-%d")) + ".html"
+f = open(filename,'a')
+
+#check on which subdomain it had achieved before failure on last run
+location = 0
+for line in readlines_reverse(filename):
+	if (line.find("<h5>") == 0):
+		lastSubdomain = line[4:(len(line)-5)]
+		location = subdomains.index(lastSubdomain) + 1
+		break
+
+domainString = '.craigslist.org/search/wrg'
+
+# for loop over subdomains, initialized to the last subdomain written to
+for i in xrange(location,len(subdomains)):
+
+	#print a "header" for the subdomain into our output file (to later on determine scrape progress)
+	f.write("<h5>" + subdomains[i] + "</h5>\n")
+
+	#try to not get blocked
+	time.sleep(random.randint(9,15))
+
+	# on subdomain, pull down the writing gigs page
+	req = urllib2.Request("http://" + subdomains[i] + domainString, headers = {'User-Agent' : "Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11"})
+	page = urllib2.urlopen(req).read()
+	soup = BeautifulSoup(page, 'html.parser')
+
+	#for each link on the gigs page
+	for anchor in soup.findAll("a",class_="hdrlnk"):
+		strTimeStamp = anchor.parent.find('time')['datetime']
+		strTimeStamp = strTimeStamp[:strTimeStamp.find(' ')]
+		date_obj = datetime.strptime(strTimeStamp,'%Y-%m-%d').date()
+		
+		#if the link is from yesterday
+		if(date_obj == yesterday):
+			#if it is a relative link
+			if (anchor['href'].find(".craigslist.org") == -1):
+				print(anchor['href'].lower())
+				# for each keyword, does it match?
+				for keyword in keywords:
+					#if matches keyword(s), write it to output file
+					if(anchor.decode_contents().lower().find(keyword) != -1):
+						#modify anchor to include domain & open in new tab, then write it to the file
+						anchor['href'] = "http://" + subdomains[i] + ".craigslist.org" + anchor['href']
+						anchor['target'] = "_blank"
+						f.write(str(anchor) + "<br />\n")
+						print(anchor)
+						continue #unfortunately cant break or we'll skip the 'else' statement below
+				else:
+					continue
+
+		# even if not from yesterday, can still add the subdomain if not a relative link (>NEARBY search results)
+		if (anchor['href'].find(".craigslist.org") != -1):
+			#isolate subdomain, too lazy to wrestle with regex right now
+			newSub = anchor['href'][2:anchor['href'].find(".")]
+			#if subdomain not in list, open, write it to the subdomain file, close. add to subdomain array also
+			if newSub not in subdomains:
+				subdomains.append(newSub)
+				s = open("subdomains.txt",'a')
+				s.write(newSub+"\n")
+				s.close()
+			
+# close output file
+f.close()
