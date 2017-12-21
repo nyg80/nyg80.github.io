@@ -1,0 +1,109 @@
+from bs4 import BeautifulSoup
+import urllib2
+import time
+import os
+import random
+
+#prompt for reddit username
+username = raw_input("Enter the reddit username you want to scrape: ")
+
+url = "https://www.reddit.com/user/" + username + "/comments/"
+
+
+comments = {}
+
+while True:
+	print("pulling page")
+	req = urllib2.Request(url, headers = {'User-Agent' : "Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11"})
+	page = urllib2.urlopen(req).read()
+	soup = BeautifulSoup(page, 'html.parser')
+	
+	#wait randomly between 0 and 3 seconds to try to avoid detection as scraper
+	time.sleep(random.randint(0,3))
+	
+	for cmt in soup.findAll("div",class_="comment"):
+
+		tag = cmt.find("span", class_="unvoted")
+		#deal with the case of score 'hidden score'
+		if tag is not None:
+			tag = tag.get_text()
+		else:
+			tag = "Score Hidden"
+		
+		t2 = cmt.find("p", class_="tagline")
+		t2.replace_with(tag)
+		
+		#remove save, report, and give gold links		
+		tag = cmt.findAll("li",class_="save-button")
+		for t in tag:
+			t.decompose()
+		tag = cmt.findAll("li",class_="report-button")
+		for t in tag:
+			t.decompose()
+		tag = cmt.findAll("li",class_="give-gold-button")
+		for t in tag:
+			t.decompose()
+
+		#make the thread link that goes with a comment an absolute URL instead of relative
+		tag = cmt.find("a", class_="title")
+		tag['href'] = "https://www.reddit.com" + tag['href']
+		
+		sub = cmt.find("a",class_="subreddit hover")
+		sub = sub.string
+		print sub		
+
+		#courtesy of  http://stackoverflow.com/a/26967920 , add a link to delete non-useful comments from the page
+		temp_soup = BeautifulSoup('<a href="javascript:void(0);" onclick="this.parentNode.parentNode.removeChild(this.parentNode)">DELETE below comment</a>', "html.parser")
+		a_tag = temp_soup.a
+
+		cmt.insert(0,a_tag)		
+		
+		#format: dict of lists.  Subreddit -> list of comments
+		if sub not in comments:
+			comments[sub] = []	
+		comments[sub].append(cmt)
+	
+	#break on running out of next page links
+	nextBtn = soup.find("span",class_="next-button")
+	if nextBtn is None:
+		break
+	nextLink = nextBtn.a['href']
+	
+	url = nextLink
+	
+	
+print "Subreddit name followed by number of comments in that subreddit:"
+	
+label = 0	
+indexOfSubNumbers = []
+	
+for key, value in comments.iteritems():
+	print str(label) + ")" + key + " | " + str(len(value))
+	indexOfSubNumbers.insert(label,key)
+	label += 1
+	
+subredditNumbers = raw_input("Enter the #s of the subreddits (separated by comma) that you want a printout of: ")
+subredditNumbers = ((subredditNumbers.strip()).replace(' ','')).split(',')
+
+#process the input to print-to-file out every comment from the specified sub
+
+zebra = "off"
+outputFile = open(username+".html",'w')
+
+for subNum in subredditNumbers:
+	#zebra stripe the results file by subreddit 
+	if zebra == "on":
+		outputFile.write("<div style='background-color:#42ebf4'>")
+		zebra = "off"
+	else:
+		outputFile.write("</div>")
+		zebra = "on"
+	
+	for thing in comments[indexOfSubNumbers[int(subNum)]]:
+		outputFile.write(str(thing))
+	
+	
+outputFile.close()
+print "results can be found in the file " + username + ".html"
+	
+
