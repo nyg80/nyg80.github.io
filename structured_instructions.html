@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>Pause VLC to Provide Verbal Instructions - Python</title>
+</head>
+<body style='background-color:LightGray;font-family:Arial, Helvetica, sans-serif;'>
+<div style='width:800px; margin-left:auto; margin-right:auto;background-color:white;padding:30px;'>
+<h3>Using Python to Interrupt Media with Preset Instructions</h3>
+
+<h4>The 'What'</h4>
+
+<p>This script can play back a piece of audio or video, and will pause its playback to say out loud (and if a video, show) an instruction to follow.</p>
+
+<h4>The 'Why'</h4>
+<p>I was doing 30 minute audio lessons learning a foreign language, and wanted to do some muscle stretching during these sessions.  Thinking up/reading which stretch to do next was too distracting to do concurrently with the material, so I glued together a few functionalities with this script to pause media playback and tell me which stretch to do and when.</p>
+
+<h4>The 'How'</h4>
+
+<p>A Python3 script using <a href="https://github.com/geoffsalmon/vlc-python/blob/master/footer.py" title="example file I based this script off of">python-vlc</a> and <a href="https://pypi.org/project/pyttsx3/" title="Text to Speech (TTS) library for Python 2 and 3" >pyttsx3</a> (which may require <a href="https://en.wikipedia.org/wiki/ESpeak" title="software speech synthesizer" >eSpeak</a>).  Since <a href="https://www.videolan.org/vlc/" title="free and open source cross-platform multimedia player" >VLC</a> is the media player being used, almost any audio or video file can be used as the underlying media being played.  User supplies an input file with the instructions to be used, in a rudimentary format of <pre>&lt;time (in seconds) of instruction&gt; &lt;instruction to be read&gt;</pre> on each line.  The script will play a command-line supplied media file, and at the times dictated, pause playback, and speak out loud the instruction.  For video playback, it will also display the instruction super imposed on the video, and display a time counter in the corner between instructions.</p>
+
+<h4>The Output</h4>
+
+<p>Below you can see some screenshots of when this script is used with video media, both paysed during an instruction and in normal playback.</p>
+<img src="example_instruction.png" alt="instruction overlaying video" /> &nbsp;<img src="example_timestamp.png" alt="timestamp overlaying the video" />
+
+<h4>The Code</h4>
+
+<p><a href='instructions.py.txt' >Click here to view the script</a>.</p>
+
+<h4>Assumptions and Known Shortcomings</h4>
+
+<p>There are lots of settings and options/configurations that are hardcoded into this script that could be command line options or in a settings file. From properties of the voice speed and volume in the pyttsx3 portion, to playback display and speed and more in VLC, to whether or not to display subtitles, and so on.</p>
+
+<h4>Possible Expansion</h4>
+
+<p>Could add Spotify as a supported playback platform using something like <a href="https://github.com/plamere/spotipy" title="Spotipy: light weight Python library for the Spotify Web API" >Spotipy</a>.  Could also make this script or a variant of it work with YouTube or NetFlix.  As it stands, however, this script fulfills my needs so its doubtful I will be upgrading it.</p>
+
+
+
+</div>
+<script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101143852);</script>
+<script async src="//static.getclicky.com/js"></script>
+
+</body>
+</html>

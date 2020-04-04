@@ -1,0 +1,149 @@
+import sys
+import os
+import vlc
+from vlc import VideoMarqueeOption
+import time
+import threading
+import pyttsx3
+
+timestamp_text = []
+#parse input.txt to get the instructions
+with open('input.txt') as file:
+    lines = file.readlines()
+    for line in lines:
+        instruction_data = line.strip().split(" ", 1)
+        instruction_data[0] = int(instruction_data[0])
+        timestamp_text.append(instruction_data)
+
+if __name__ == '__main__':
+    try:
+        from msvcrt import getch
+    except ImportError:
+        import termios
+        import tty
+
+        def getch():  # getchar(), getc(stdin)  #PYCHOK flake
+            fd = sys.stdin.fileno()
+            old = termios.tcgetattr(fd)
+            try:
+                tty.setraw(fd)
+                ch = sys.stdin.read(1)
+            finally:
+                termios.tcsetattr(fd, termios.TCSADRAIN, old)
+            return ch
+
+    # helpful references:
+    # https://www.tutorialkart.com/python/python-multithreading/
+    # https://stackoverflow.com/a/36499538
+    def f(f_stop):
+        seconds = 0
+        t_item = timestamp_text.pop(0)
+        while not f_stop.is_set(): #gets set in the quit_app() function
+            if (str(player.get_state()) != 'State.Paused'):
+                time.sleep(1)
+                seconds += 1
+                m, s = divmod(seconds, 60)
+                player.video_set_marquee_string(VideoMarqueeOption.Text, f'{m:02d}:{s:02d}')
+                if seconds == t_item[0]:
+                    player.pause()
+                    #set marquee position and time to big and center
+                    player.video_set_marquee_int(VideoMarqueeOption.Size, 48)
+                    player.video_set_marquee_int(VideoMarqueeOption.Position, 0) #center
+                    player.video_set_marquee_string(VideoMarqueeOption.Text, str(t_item[1]))
+                    engine.say(t_item[1])
+                    if timestamp_text:
+                        #assuming that instruction entries are in ascending timestamp order
+                        t_item = timestamp_text.pop(0)
+                    engine.runAndWait()
+                    player.video_set_marquee_int(VideoMarqueeOption.Size, 32)
+                    player.video_set_marquee_int(VideoMarqueeOption.Position, 9) #BottomLeft
+                    player.pause()
+                    
+
+
+    if '-h' in sys.argv[:2] or '--help' in sys.argv[:2]:
+        print('Usage: %s [options] <movie_filename>' % sys.argv[0])
+        print('Once launched, type ? for help.')
+        print('')
+
+    else:
+        movie = os.path.expanduser(sys.argv.pop())
+        if not os.access(movie, os.R_OK):
+            print('Error: %s file not readable' % movie)
+            sys.exit(1)
+
+        # Need --sub-source=marq in order to use marquee below
+        instance = vlc.Instance(["--sub-source=marq"] + sys.argv[1:])
+        #instance = vlc.Instance(["--sub-filter=marq"] + sys.argv[1:])
+        try:
+            media = instance.media_new(movie)
+        except (AttributeError, NameError) as e:
+            print('%s: %s (%s %s vs LibVLC %s)' % (e.__class__.__name__, e,
+                                                   sys.argv[0], __version__,
+                                                   libvlc_get_version()))
+            sys.exit(1)
+        player = instance.media_player_new()
+        player.set_media(media)
+        player.set_rate(1.0)
+        player.play()
+
+        def mspf():
+            """Milliseconds per frame"""
+            return int(1000 // (player.get_fps() or 25))
+
+        def print_info():
+            """Print information about the media"""
+            try:
+                print_version()
+                media = player.get_media()
+                print('State: %s' % player.get_state())
+                print('Media: %s' % media.get_mrl().encode())
+                print('Track: %s/%s' % (player.video_get_track(), player.video_get_track_count()))
+                print('Current time: %s/%s' % (player.get_time()/1000, media.get_duration()/1000))
+                print('Position: %s' % player.get_position())
+                print('FPS: %s (%d ms)' % (player.get_fps(), mspf()))
+                print('Rate: %s' % player.get_rate())
+                print('Video size: %s' % str(player.video_get_size(0)))  # num=0
+                print('Scale: %s' % player.video_get_scale())
+                print('Aspect ratio: %s' % player.video_get_aspect_ratio())
+            except Exception:
+                print('Error: %s' % sys.exc_info()[1])
+
+        def print_help():
+            """Print help"""
+            print('Single-character commands:')
+            for k, m in sorted(keybindings.items()):
+                m = (m.__doc__ or m.__name__).splitlines()[0]
+                print('  %s: %s.' % (k, m.rstrip('.')))
+            print('0-9: go to that fraction of the movie')
+
+        def quit_app():
+            """Stop and exit"""
+            f_stop.set()
+            sys.exit(0)
+
+        keybindings = {
+            ' ': player.pause,
+            'f': player.toggle_fullscreen,
+            'i': print_info,
+            'q': quit_app,
+            '?': print_help,
+            }
+
+        print('Press q to quit, ? to get help.%s' % os.linesep)
+        # get the text to speech engine set up
+        engine = pyttsx3.init()
+        engine.setProperty('rate', 135)
+        # get the timer/instruction thread started
+        f_stop = threading.Event()
+        t = threading.Thread(target=f, args=(f_stop,))
+        t.start()
+
+        while True:
+            k = getch()
+            print('> %s' % k)
+            if k in keybindings:
+                keybindings[k]()
+            elif k.isdigit():
+                 # jump to fraction of the movie.
+                player.set_position(float('0.'+k))
