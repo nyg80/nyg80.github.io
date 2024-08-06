@@ -1,5 +1,6 @@
 <html>
 <head>
+<title>Renovation Project Photos</title>
 <script type='text/javascript'>
 function sh(divId, clickedEl) {
   var x = document.getElementById(divId);
@@ -10,7 +11,63 @@ function sh(divId, clickedEl) {
     x.style.display = "none";
 	clickedEl.textContent = clickedEl.textContent.slice(0,-1) + '+';
   }
-} 
+}
+function expandAll() {
+	// grab every div in the page
+	// if style.display === "none"
+	// style.display = "block"
+	// find previous element that possesses the class 'clickable'
+	// make clickableEl.textContent = clickableEl.textContent.slice(0,-1) + '-';
+	
+	// Get all div elements on the page
+const divs = document.querySelectorAll('div');
+
+divs.forEach(div => {
+  // Check if the div is hidden
+  if (window.getComputedStyle(div).display === 'none') {
+    // Make it visible
+    div.style.display = 'block';
+
+    // Find the previous sibling with the class 'clickable'
+    let previousElement = div.previousElementSibling;
+    while (previousElement) {
+      if (previousElement.classList.contains('clickable')) {
+        // Modify the text content of the clickable element
+        previousElement.textContent = previousElement.textContent.slice(0, -1) + '-';
+        break;
+      }
+      previousElement = previousElement.previousElementSibling;
+    }
+  }
+});
+
+const toggleSpan = document.getElementById('toggleAll');
+toggleSpan.textContent = "Minimize all Sections -";
+toggleSpan.onclick = minimizeAll;
+}
+function minimizeAll() {
+	const divs = document.querySelectorAll('div');
+
+	divs.forEach(div => {
+	  if (window.getComputedStyle(div).display === 'block' && div.id) {
+		div.style.display = 'none';
+
+		let previousElement = div.previousElementSibling;
+		while (previousElement) {
+		  if (previousElement.classList.contains('clickable')) {
+			// Modify the text content of the clickable element
+			previousElement.textContent = previousElement.textContent.slice(0, -1) + '+';
+			break;
+		  }
+		  previousElement = previousElement.previousElementSibling;
+		}
+	  }
+	});
+
+const toggleSpan = document.getElementById('toggleAll');
+toggleSpan.textContent = "Expand all Sections +";
+toggleSpan.onclick = expandAll;
+}
 </script>
 <style>
 li {
@@ -54,7 +111,7 @@ body {
 background-color: whitesmoke;
   display: block;
   width: fit-content;
-  cursor: crosshair;
+  cursor: pointer;
 }
 img
 {
@@ -71,7 +128,8 @@ img
 <body>
 <div class="page">
 <h1>Renovation Project</h1>
-Click on any text that is followed by a '+' to expand for more information and pictures.  Click again to minimize it.
+<p>Click on any text that is followed by a '+' to expand for more information and pictures.  Click again to minimize it.</p>
+<span onClick="expandAll()" id="toggleAll" class="clickable" style="text-decoration: underline;">Expand all Sections +</span>
 <h2 onClick="sh('kitchen', this)" class="clickable">Kitchen +</h2>
 	<div id="kitchen" style="display:none">
 		<ul>
@@ -84,13 +142,20 @@ Click on any text that is followed by a '+' to expand for more information and p
 				<img src="./images/block1.jpg" />
 				Upon opening up the box, it turns out that it was there to cover up an old chimney.
 				<img src="./images/block2.jpg" />
-				Used a hammer drill to remove some bricks, and a circular saw to cut the ones that needed to stay(pictures down further).  Rerouted the gas line.
+				Used a hammer drill to remove some bricks, and a circular saw to cut the ones that needed to stay(picture is further down in this section).  Rerouted the gas line.
 				<img src="./images/block4.jpg" />
 				Added an electrical outlet, covered the hole in the wall.
 				<img src="./images/block5.jpg" />
 				Installing the new kitchen flooring allowed for it to be cleaned up even more.  This shows the cut down bricks with the old floor, and after the new floor had been installed.
 				<img src="./images/block3.jpg" /><img src="./images/block3a.jpg" />
 				</span>
+			</div>
+			<li onClick='sh("movestove", this)' class="clickable">Shift stove placement +</li>
+			<div id="movestove" class="textblock" style="display:none">
+				After removing the wooden block behind the stove (detailed above), moved the stove to be flush with the bump-out in the kitchen wall.
+				<img src="./images/stove1.jpg" />
+				This allowed for installing a longer countertop than had previously been in place.  Installed a board to act as a block or buffer between the stove and the lower cabinets.
+				<img src="./images/stove2.jpg" />
 			</div>
 			<li onClick='sh("kitchencabinet", this)' class="clickable">Repair cabinet water damage +</li>
 			<div id="kitchencabinet" class="textblock" style="display:none">
@@ -101,20 +166,13 @@ Click on any text that is followed by a '+' to expand for more information and p
 				Covered up that panel by gluing on another panel, re-attached the lower trim.</span>
 				<img src="./images/cabinet3.jpg" />
 			</div>
-			<li onClick='sh("movestove", this)' class="clickable">Shift stove placement +</li>
-			<div id="movestove" class="textblock" style="display:none">
-				After removing the wooden block behind the stove (detailed above), moved the stove to be flush with the bump-out in the kitchen wall.
-				<img src="./images/stove1.jpg" />
-				This allowed for installing a longer countertop than had previously been in place.  Installed a board to act as a block or buffer between the stove and the lower cabinets.
-				<img src="./images/stove2.jpg" />
-			</div>
 			<li onClick='sh("plasterhole", this)' class="clickable">Repair plaster wall +</li>
 			<div id="plasterhole" class="textblock" style="display:none">
 				There was a small crack in the wall plaster near the kitchen doorway.
 				<img src="./images/plaster1.jpg" />
 				When prodded, it turned into a pretty big hole.
 				<img src="./images/plaster2.jpg" />
-				Patched it with drywall mud (and mesh tape).
+				Patched it with drywall mud and mesh tape.
 				<img src="./images/plaster3.jpg" />
 				<img src="./images/plaster4.jpg" />
 				Sanded, painted it.
@@ -186,7 +244,7 @@ Click on any text that is followed by a '+' to expand for more information and p
 				<img src="./images/stickers1.jpg" />
 				Took door down and belt sanded off the stickers.
 				<img src="./images/stickers2.jpg" />
-				Repainted door.
+				Repainted door, rehung it.
 				<img src="./images/stickers3.jpg" />
 			</div>
 			<li onClick='sh("closet", this)' class="clickable">Replace broken wall in closet +</li>
