@@ -13,33 +13,22 @@ function sh(divId, clickedEl) {
   }
 }
 function expandAll() {
-	// grab every div in the page
-	// if style.display === "none"
-	// style.display = "block"
-	// find previous element that possesses the class 'clickable'
-	// make clickableEl.textContent = clickableEl.textContent.slice(0,-1) + '-';
-	
-	// Get all div elements on the page
 const divs = document.querySelectorAll('div');
 
-divs.forEach(div => {
-  // Check if the div is hidden
-  if (window.getComputedStyle(div).display === 'none') {
-    // Make it visible
-    div.style.display = 'block';
+	divs.forEach(div => {
+	  if (window.getComputedStyle(div).display === 'none') {
+		div.style.display = 'block';
 
-    // Find the previous sibling with the class 'clickable'
-    let previousElement = div.previousElementSibling;
-    while (previousElement) {
-      if (previousElement.classList.contains('clickable')) {
-        // Modify the text content of the clickable element
-        previousElement.textContent = previousElement.textContent.slice(0, -1) + '-';
-        break;
-      }
-      previousElement = previousElement.previousElementSibling;
-    }
-  }
-});
+		let previousElement = div.previousElementSibling;
+		while (previousElement) {
+		  if (previousElement.classList.contains('clickable')) {
+			previousElement.textContent = previousElement.textContent.slice(0, -1) + '-';
+			break;
+		  }
+		  previousElement = previousElement.previousElementSibling;
+		}
+	  }
+	});
 
 const toggleSpan = document.getElementById('toggleAll');
 toggleSpan.textContent = "Minimize all Sections -";
@@ -55,7 +44,6 @@ function minimizeAll() {
 		let previousElement = div.previousElementSibling;
 		while (previousElement) {
 		  if (previousElement.classList.contains('clickable')) {
-			// Modify the text content of the clickable element
 			previousElement.textContent = previousElement.textContent.slice(0, -1) + '+';
 			break;
 		  }
@@ -73,6 +61,9 @@ toggleSpan.onclick = expandAll;
 li {
     list-style-type: none;
 	font-size: 150%;
+}
+a:visited {
+	color: #0000EE;
 }
 li.clickable {
 margin-top: 20px;
@@ -126,6 +117,7 @@ img
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<a id="top"></a>
 <div class="page">
 <h1>Renovation Project</h1>
 <p>Click on any text that is followed by a '+' to expand for more information and pictures.  Click again to minimize it.</p>
@@ -232,7 +224,7 @@ img
 			</div>
 			<li onClick='sh("primarydoor", this)' class="clickable">Frame out new doorway and door +</li>
 			<div id="primarydoor" class="textblock" style="display:none">
-				This room originally was not a bedroom.  As such, it had an overly wide doorway (4 feet) and there had at one point been sliding doors installed.
+				This room originally was not a bedroom.  As such, it had an oversized doorway (4 feet) and there had at one point been sliding doors installed.
 				<img src="./images/doorway1.jpg" />
 				Framed out a proper doorway and installed a 36" pre-hung door.
 				<img src="./images/doorway2.jpg" />
@@ -358,6 +350,7 @@ img
 			</div>
 		</ul>
 	</div>
+	<a href="#top">^ Back to top</a>
 </div>
 </body>
 </html>
