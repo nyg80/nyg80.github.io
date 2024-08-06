@@ -1,1 +1,297 @@
-coming soon
+<html>
+<head>
+<script type='text/javascript'>
+function sh(divId, clickedEl) {
+  var x = document.getElementById(divId);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+	clickedEl.textContent = clickedEl.textContent.slice(0,-1) + '-';
+  } else {
+    x.style.display = "none";
+	clickedEl.textContent = clickedEl.textContent.slice(0,-1) + '+';
+  }
+} 
+</script>
+<style>
+li {
+    list-style-type: none;
+	font-size: 150%;
+}
+li.clickable {
+margin-top: 20px;
+}
+ul {
+	@media only screen and (max-width: 1024px) {
+		padding-left: 5px;
+		margin-top: 0px;
+	}
+}
+h2 {
+	margin-bottom: 0px;
+}
+body {
+	font-family: system-ui, sans-serif;
+	background: #d7d7d7;
+
+@media only screen and (min-width: 1024px) {
+	background-color:LightGray; }
+}
+.page {
+@media only screen and (min-width: 1024px) {width:1000px;margin-left:auto;margin-right:auto;background-color:white;padding:30px }	
+}
+.textblock {
+  margin: 5px;
+  margin-left: -40px;
+  background-color: lightyellow;
+  padding: 22px;
+  font-size: 120%;
+  @media only screen and (max-width: 1024px) {
+	margin-left: 0px;
+	padding: 10px;
+}
+}
+.clickable {
+background-color: whitesmoke;
+  display: block;
+  width: fit-content;
+  cursor: crosshair;
+}
+img
+{
+    max-width: 100%;
+    min-width: 300px;
+    height: auto;
+	display: block;
+	padding-top: 15px;
+	padding-bottom: 35px;
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="page">
+<h1>Renovation Project</h1>
+Click on any text that is followed by a '+' to expand for more information and pictures.  Click again to minimize it.
+<h2 onClick="sh('kitchen', this)" class="clickable">Kitchen +</h2>
+	<div id="kitchen" style="display:none">
+		<ul>
+			<li>New paint</li>
+			<li>New countertops</li>
+			<li>New flooring</li>		
+			<li onClick='sh("kitchenblock", this)' class="clickable">Remove wood block, reroute gas line +</li>
+			<div id="kitchenblock" class="textblock" style="display:none">
+				<span>When first walking the property, there was this inexplicable wooden block on the floor in the kitchen where the oven/stove should go.  Also the gas line for the stove was up too high and sticking too far out of the wall.
+				<img src="./images/block1.jpg" />
+				Upon opening up the box, it turns out that it was there to cover up an old chimney.
+				<img src="./images/block2.jpg" />
+				Used a hammer drill to remove some bricks, and a circular saw to cut the ones that needed to stay(pictures down further).  Rerouted the gas line.
+				<img src="./images/block4.jpg" />
+				Added an electrical outlet, covered the hole in the wall.
+				<img src="./images/block5.jpg" />
+				Installing the new kitchen flooring allowed for it to be cleaned up even more.  This shows the cut down bricks with the old floor, and after the new floor had been installed.
+				<img src="./images/block3.jpg" /><img src="./images/block3a.jpg" />
+				</span>
+			</div>
+			<li onClick='sh("kitchencabinet", this)' class="clickable">Repair cabinet water damage +</li>
+			<div id="kitchencabinet" class="textblock" style="display:none">
+				<span>A previous leak under the sink had ruined the wall of the cabinet.
+				<img src="./images/cabinet1.jpg" />
+				Cut away and cleaned up what was there.
+				<img src="./images/cabinet2.jpg" />
+				Covered up that panel by gluing on another panel, re-attached the lower trim.</span>
+				<img src="./images/cabinet3.jpg" />
+			</div>
+			<li onClick='sh("movestove", this)' class="clickable">Shift stove placement +</li>
+			<div id="movestove" class="textblock" style="display:none">
+				After removing the wooden block behind the stove (detailed above), moved the stove to be flush with the bump-out in the kitchen wall.
+				<img src="./images/stove1.jpg" />
+				This allowed for installing a longer countertop than had previously been in place.  Installed a board to act as a block or buffer between the stove and the lower cabinets.
+				<img src="./images/stove2.jpg" />
+			</div>
+			<li onClick='sh("plasterhole", this)' class="clickable">Repair plaster wall +</li>
+			<div id="plasterhole" class="textblock" style="display:none">
+				There was a small crack in the wall plaster near the kitchen doorway.
+				<img src="./images/plaster1.jpg" />
+				When prodded, it turned into a pretty big hole.
+				<img src="./images/plaster2.jpg" />
+				Patched it with drywall mud (and mesh tape).
+				<img src="./images/plaster3.jpg" />
+				<img src="./images/plaster4.jpg" />
+				Sanded, painted it.
+				<img src="./images/plaster5.jpg" />
+			</div>
+			<li onClick='sh("", this)' class="clickable"></li>
+			<li onClick='sh("", this)' class="clickable"></li>
+		</ul>
+	</div>
+<h2 onClick="sh('livingroom', this)" class="clickable">Living Room +</h2>
+	<div id="livingroom" style="display:none">
+		<ul>
+			<li>New paint</li>
+			<li>Refinish floor</li>
+			<li onClick='sh("entrylight", this)' class="clickable">Replace fixture in unit entryway +</li>
+			<div id="entrylight" class="textblock" style="display:none">
+				The apartment entryway originally had a lightbulb that shone through a patterned translucent sheet (patterned sheet not shown).
+				<img src="./images/entry1.jpg" />
+				Installed a can light in its stead.
+				<img src="./images/entry2.jpg" />
+			</div>
+			<li onClick='sh("wallhole", this)' class="clickable">Repair hole in wall +</li>
+			<div id="wallhole" class="textblock" style="display:none">
+				There was this weird patch in a corner of the living room.
+				<img src="./images/hole1.jpg" />
+				Turns out it was covering a hole that existed as the exhaust for a previous (probably pellet) stove.
+				<img src="./images/hole2.jpg" />
+				Capped it off with some styrofoam insulation and patched the wall itself up.
+				<img src="./images/hole3.jpg" />
+			</div>
+			<li onClick='sh("livingroomlight", this)' class="clickable">Add overhead lighting +</li>
+			<div id="livingroomlight" class="textblock" style="display:none">
+				Originally this room had no overhead lighting.
+				<img src="./images/lrlight1.jpg" />
+				Installed a can light in the center of the room, wired to a dimmer switch by the doorway to the kitchen.
+				<img src="./images/lrlight2.jpg" />
+			</div>
+		</ul>
+	</div>
+<h2 onClick="sh('primary', this)" class="clickable">Primary Bedroom +</h2>
+	<div id="primary" style="display:none">
+		<ul>
+			<li>New paint</li>
+			<li>Refinish floor</li>
+			<li onClick='sh("primarylight", this)' class="clickable">Replace fake fluorescent light +</li>
+			<div id="primarylight" class="textblock" style="display:none">
+				Originally this room had a single incandescent light with drop ceiling tiles that made it look like there was a tube fluorescent light up there.
+				<img src="./images/light1.jpg" />
+				Installed 2 can lights, and corrected the strange light switch layout of the room.
+				<img src="./images/light2.jpg" />
+			</div>
+			<li onClick='sh("primarydoor", this)' class="clickable">Frame out new doorway and door +</li>
+			<div id="primarydoor" class="textblock" style="display:none">
+				This room originally was not a bedroom.  As such, it had an overly wide doorway (4 feet) and there had at one point been sliding doors installed.
+				<img src="./images/doorway1.jpg" />
+				Framed out a proper doorway and installed a 36" wide pre-hung door.
+				<img src="./images/doorway2.jpg" />
+			</div>
+		</ul>
+	</div>
+<h2 onClick="sh('middle', this)" class="clickable">Middle Bedroom +</h2>
+	<div id="middle" style="display:none">
+		<ul>
+			<li>New paint</li>
+			<li>Refinish floor</li>
+			<li onClick='sh("stickers", this)' class="clickable">Remove stickers from door +</li>
+			<div id="stickers" class="textblock" style="display:none">
+				This door had been covered in stickers, which had then been painted over, still showing through.
+				<img src="./images/stickers1.jpg" />
+				Took door down and belt sanded off the stickers.
+				<img src="./images/stickers2.jpg" />
+				Repainted door.
+				<img src="./images/stickers3.jpg" />
+			</div>
+			<li onClick='sh("closet", this)' class="clickable">Replace broken wall in closet +</li>
+			<div id="closet" class="textblock" style="display:none">
+				This plaster wall had some big holes in it.
+				<img src="./images/closet1.jpg" />
+				Took out the closet shelf and removed the remainder of the plaster.
+				<img src="./images/closet2.jpg" />
+				Hung drywall, painted, re installed shelf and clothes hanger bar.
+				<img src="./images/closet3.jpg" />
+			</div>
+		</ul>
+	</div>
+<h2 onClick="sh('rear', this)" class="clickable">Rear Bedroom +</h2>
+	<div id="rear" style="display:none">
+		<ul>
+			<li>New paint</li>
+			<li>Refinish floor</li>
+			<li>Fix broken doorknob</li>
+		</ul>
+	</div>
+<h2 onClick="sh('bonus', this)" class="clickable">Bonus Room +</h2>
+	<div id="bonus" style="display:none">
+		<ul>
+			<li>New paint</li>
+			<li>Refinish floor</li>
+			<li onClick='sh("chimney", this)' class="clickable">Remove chimney +</li>
+			<div id="chimney" class="textblock" style="display:none">
+				This room had a big bump sticking out of the wall which was an out of use chimney.
+				<img src="./images/chimney1.jpg" />
+				Removed the plaster. 
+				<img src="./images/chimney2.jpg" />
+				Removed the bricks, the shelf they sat on, and the lath as it was too inconsistent in thickness.
+				<img src="./images/chimney3.jpg" />
+				Put drywall in the hole, patched and leveled it in.
+				<img src="./images/chimney4.jpg" />
+				Painted.
+				<img src="./images/chimney5.jpg" />
+			</div>
+			<li onClick='sh("ceiling", this)' class="clickable">Install new ceiling, lights, crown molding +</li>
+			<div id="ceiling" class="textblock" style="display:none">
+				The ceiling in this room had lots of cracked plaster.
+				<img src="./images/ceiling1.jpg" />
+				Framed out furring strips attached to the joists in the ceiling.
+				<img src="./images/ceiling2.jpg" />
+				Hung sheetrock.
+				<img src="./images/ceiling3.jpg" />
+				Installed can lights and painted the ceiling.
+				<img src="./images/ceiling4.jpg" />
+				Installed crown molding
+				<img src="./images/ceiling5.jpg" />
+			</div>
+			<li onClick='sh("resurface", this)' class="clickable">Resurface walls +</li>
+			<div id="resurface" class="textblock" style="display:none" >
+				The walls in this room had previously had a skimcoat applied to them that was too thick, and in drying, resulted in many "valleys" in the surface of the walls that were quite obvious.<br /><br />
+				Applied a thin coat of joint compound over all the walls to smooth them out.
+				<img src="./images/skim1.jpg" />
+				<img src="./images/skim2.jpg" />
+				<img src="./images/skim3.jpg" />
+				<img src="./images/skim4.jpg" />
+				Sanded then painted the walls.
+				<img src="./images/chimney5.jpg" />
+			</div>
+			<li onClick='sh("", this)' class="clickable"></li>
+			<li onClick='sh("", this)' class="clickable"></li>
+			<li onClick='sh("", this)' class="clickable"></li>
+		</ul>
+	</div>
+<h2 onClick="sh('bathroom', this)" class="clickable">Bathroom +</h2>
+	<div id="bathroom" style="display:none" >
+		<ul>
+			<li>New paint</li>
+			<li>Replace cartridge in leaking sink faucet</li>
+			<li onClick='sh("bathroomfloor", this)' class="clickable">Replace portion of torn up floor +</li>
+			<div id="bathroomfloor" class="textblock" style="display:none">
+				The floor in the corner of the bathroom had some holes in it.  Cut the linoleum and pulled it up.
+				<img src="./images/bathroom1.jpg" />
+				Cleaned and painted the area.
+				<img src="./images/bathroom2.jpg" />
+				Installed 6 inch wide peel and stick flooring tiles, added a threshold transition to the old floor.
+				<img src="./images/bathroom3.jpg" />
+			</div>
+			<li onClick='sh("laundry", this)' class="clickable">Re-route laundry drain pipe +</li>
+			<div id="laundry" class="textblock" style="display:none">
+				The original drain pipe for the laundry machine (which runs exterior to the house on the back porch) had somehow lost its slope, likely leading to a back-flow of water.
+				<img src="./images/laundry1.jpg" />
+				Moved the hole in the wall up to accomodate moving the start of the drain pipe up higher.
+				<img src="./images/laundry2.jpg" />
+			</div>
+		</ul>
+	</div>
+<h2 onClick="sh('porch', this)" class="clickable">Front Porch +</h2>
+	<div id="porch" style="display:none">
+		<ul>
+			<li onClick='sh("porchfloor", this)' class="clickable">Replace flooring +</li>
+			<div id="porchfloor" class="textblock" style="display:none">
+				The front porch came with 1 by 1 peel and stick tile floors, that were coming unglued from the subflooring.
+				<img src="./images/porch1.jpg" />
+				Ripped those up.
+				<img src="./images/porch2.jpg" />
+				Scrubbed the subfloor then installed a sheet of linoleum flooring and new quarter round trim.
+				<img src="./images/porch3.jpg" />
+			</div>
+		</ul>
+	</div>
+</div>
+</body>
+</html>
