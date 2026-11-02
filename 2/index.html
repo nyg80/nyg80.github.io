@@ -322,9 +322,15 @@
     </div>
 
     <script>
-        // Get all image wrappers
+    // Get all image wrappers
         const imageWrappers = document.querySelectorAll('.image-wrapper:not(.bonus-wrapper)');
-
+        
+        let isTouchDevice = false;
+        
+        document.addEventListener('touchstart', () => {
+            isTouchDevice = true;
+        });
+        
         imageWrappers.forEach((wrapper) => {
             // Set the aspect ratio based on the image dimensions
             const beforeImg = wrapper.querySelector('.before-img');
@@ -333,25 +339,27 @@
                 const aspectRatio = beforeImg.naturalWidth / beforeImg.naturalHeight;
                 wrapper.style.aspectRatio = aspectRatio;
             };
-
-            // Desktop: hover
-            wrapper.addEventListener('mouseenter', () => {
-                wrapper.classList.add('active');
+        
+            // Click listener (for mobile toggle)
+            wrapper.addEventListener('click', function(e) {
+                if (e.target === this || e.target.tagName === 'IMG') {
+                    this.classList.toggle('active');
+                }
             });
-
-            wrapper.addEventListener('mouseleave', () => {
-                wrapper.classList.remove('active');
-            });
-
-            imageWrappers.forEach(wrapper => {
-            wrapper.addEventListener('click', function() {
-                this.classList.toggle('active');
-            });
+        
+            // Desktop: hover (only add if NOT a touch device)
+            if (!isTouchDevice) {
+                wrapper.addEventListener('mouseenter', function() {
+                    this.classList.add('active');
+                });
+        
+                wrapper.addEventListener('mouseleave', function() {
+                    this.classList.remove('active');
+                });
+            }
         });
-
-        });
-
-            function updateInstructionText() {
+        
+        function updateInstructionText() {
             const isMobile = window.matchMedia("(max-width: 768px)").matches;
             const instructionElements = document.querySelectorAll('.hint-text');
             
@@ -363,37 +371,11 @@
                 }
             });
         }
-
+        
         // Call on page load and on window resize
         updateInstructionText();
         window.addEventListener('resize', updateInstructionText);
-
-        let isTouchDevice = false;
-
-document.addEventListener('touchstart', () => {
-    isTouchDevice = true;
-});
-
-    imageWrappers.forEach(wrapper => {
-            wrapper.addEventListener('click', function(e) {
-                // Only toggle if clicking directly on the wrapper or its img, not bubbling from elsewhere
-                if (e.target === this || e.target.tagName === 'IMG') {
-                    this.classList.toggle('active');
-                }
-            });
-
-            if (!isTouchDevice) {
-                wrapper.addEventListener('mouseenter', function() {
-                    this.classList.add('active');
-                });
-
-                wrapper.addEventListener('mouseleave', function() {
-                    this.classList.remove('active');
-                });
-            }
-        });
-
-
+        
     </script>
 </body>
 </html>
