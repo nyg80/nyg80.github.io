@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment Renovation - Before & After</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background: #e8e8e8;
+            color: #333;
+            padding: 50px 40px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #2c2c2c;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        main {
+            padding: 60px 40px;
+        }
+
+        .room-section {
+            margin-bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .room-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .room-section h2 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #d0d0d0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            /* max-width: 500px; */
+            aspect-ratio: auto;
+            overflow: hidden;
+            border-radius: 6px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+
+        .image-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .before-img {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .after-img {
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .image-wrapper:hover .before-img,
+        .image-wrapper.active .before-img {
+            opacity: 0;
+        }
+
+        .image-wrapper:hover .after-img,
+        .image-wrapper.active .after-img {
+            opacity: 1;
+        }
+
+        .bonus-wrapper {
+            position: static !important;
+        }
+
+        .bonus-wrapper img {
+            position: static !important;
+            opacity: 1 !important;
+        }
+
+
+        .image-label {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: 600;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .before-label {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .after-label {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-wrapper:hover .before-label,
+        .image-wrapper.active .before-label {
+            opacity: 0;
+        }
+
+        .image-wrapper:hover .after-label,
+        .image-wrapper.active .after-label {
+            opacity: 1;
+        }
+
+        .hint-text {
+            margin-top: 15px;
+            color: #888;
+            font-size: 0.95em;
+            font-style: italic;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            header {
+                padding: 30px 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            main {
+                padding: 40px 20px;
+            }
+
+            .room-section {
+                margin-bottom: 60px;
+            }
+
+            .room-section h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>House 2, Second Floor</h1>
+            <p>before & after</p>
+        </header>
+
+        <main>
+            <!-- Kitchen -->
+            <section class="room-section">
+                <h2>Kitchen</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/kitchen.jpeg" alt="Kitchen Before" class="before-img">
+                        <img src="after/kitchen.jpeg" alt="Kitchen After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                </div>
+                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+                <div class="bonus-images">
+                    <h3>Additional Detail</h3>
+                    <div class="bonus-grid">
+                        <div class="bonus-item">
+                            <div class="image-wrapper bonus-wrapper">
+                                <img src="after/kitchen2.jpeg" alt="Bonus Image 1">
+                            </div>
+                            <p class="bonus-caption">All new upper and lower cabinets, countertop, appliances</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bathroom -->
+            <section class="room-section">
+                <h2>Bathroom</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/bathroom.jpeg" alt="Bathroom Before" class="before-img">
+                        <img src="after/bathroom.jpeg" alt="Bathroom After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                </div>
+                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+                <div class="bonus-images">
+                    <h3>Additional Detail</h3>
+                    <div class="bonus-grid">
+                        <div class="bonus-item">
+                            <div class="image-wrapper bonus-wrapper">
+                                <img src="after/bathroom2.jpeg" alt="Bonus Image 1">
+                            </div>
+                            <p class="bonus-caption">All new lighting, medicine cabinet, vanity, toilet</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Front bedroom -->
+            <section class="room-section">
+                <h2>Front Bedroom</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/front.jpeg" alt="Front Bedroom Before" class="before-img">
+                        <img src="after/front.jpeg" alt="Front Bedroom After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                </div>
+                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+            </section>
+
+            <!-- Living Room -->
+            <section class="room-section">
+                <h2>Living Room</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/living.jpeg" alt="Living Room Before" class="before-img">
+                        <img src="after/living.jpeg" alt="Living Room After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                </div>
+                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+            </section>
+
+            <!-- Middle Bedroom -->
+            <section class="room-section">
+                <h2>Middle Bedroom</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/middle.jpeg" alt="middle Bedroom Before" class="before-img">
+                        <img src="after/middle.jpeg" alt="Middle Bedroom After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                </div>
+                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+            </section>
+
+            <!-- Rear Bedroom -->
+            <section class="room-section">
+                <h2>Rear Bedroom</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/rear.jpeg" alt="Rear Bedroom Before" class="before-img">
+                        <img src="after/rear.jpeg" alt="Rear Bedroom After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                </div>
+                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Get all image wrappers
+        const imageWrappers = document.querySelectorAll('.image-wrapper:not(.bonus-wrapper)');
+
+        imageWrappers.forEach((wrapper) => {
+            // Set the aspect ratio based on the image dimensions
+            const beforeImg = wrapper.querySelector('.before-img');
+            
+            beforeImg.onload = () => {
+                const aspectRatio = beforeImg.naturalWidth / beforeImg.naturalHeight;
+                wrapper.style.aspectRatio = aspectRatio;
+            };
+
+            // Desktop: hover
+            wrapper.addEventListener('mouseenter', () => {
+                wrapper.classList.add('active');
+            });
+
+            wrapper.addEventListener('mouseleave', () => {
+                wrapper.classList.remove('active');
+            });
+
+            // Mobile/Touch: touch events
+            wrapper.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                wrapper.classList.add('active');
+            });
+
+            wrapper.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                wrapper.classList.remove('active');
+            });
+        });
+
+            function updateInstructionText() {
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            const instructionElements = document.querySelectorAll('.hint-text');
+            
+            instructionElements.forEach(element => {
+                if (isMobile) {
+                    element.textContent = "Hold down on the image to see the transformation";
+                } else {
+                    element.textContent = "Hover over the image to see the transformation";
+                }
+            });
+        }
+
+        // Call on page load and on window resize
+        updateInstructionText();
+        window.addEventListener('resize', updateInstructionText);
+
+    </script>
+</body>
+</html>
