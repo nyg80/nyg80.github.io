@@ -203,6 +203,11 @@
                 font-size: 1.5em;
             }
         }
+        @media (hover: none) and (pointer: coarse) {
+            .image-wrapper:hover img:last-child {
+                opacity: 0 !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -262,7 +267,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- Front bedroom -->
             <section class="room-section">
                 <h2>Front Bedroom</h2>
@@ -343,16 +348,12 @@
                 wrapper.classList.remove('active');
             });
 
-            // Mobile/Touch: touch events
-            wrapper.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                wrapper.classList.add('active');
+            imageWrappers.forEach(wrapper => {
+            wrapper.addEventListener('click', function() {
+                this.classList.toggle('active');
             });
+        });
 
-            wrapper.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                wrapper.classList.remove('active');
-            });
         });
 
             function updateInstructionText() {
@@ -361,7 +362,7 @@
             
             instructionElements.forEach(element => {
                 if (isMobile) {
-                    element.textContent = "Hold down on the image to see the transformation";
+                    element.textContent = "Tap on the image to see the transformation";
                 } else {
                     element.textContent = "Hover over the image to see the transformation";
                 }
