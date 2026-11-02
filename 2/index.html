@@ -374,21 +374,25 @@ document.addEventListener('touchstart', () => {
     isTouchDevice = true;
 });
 
-imageWrappers.forEach(wrapper => {
-    wrapper.addEventListener('click', function(e) {
-        this.classList.toggle('active');
-    });
+    imageWrappers.forEach(wrapper => {
+            wrapper.addEventListener('click', function(e) {
+                // Only toggle if clicking directly on the wrapper or its img, not bubbling from elsewhere
+                if (e.target === this || e.target.tagName === 'IMG') {
+                    this.classList.toggle('active');
+                }
+            });
 
-    if (!isTouchDevice) {
-        wrapper.addEventListener('mouseenter', function() {
-            this.classList.add('active');
+            if (!isTouchDevice) {
+                wrapper.addEventListener('mouseenter', function() {
+                    this.classList.add('active');
+                });
+
+                wrapper.addEventListener('mouseleave', function() {
+                    this.classList.remove('active');
+                });
+            }
         });
 
-        wrapper.addEventListener('mouseleave', function() {
-            this.classList.remove('active');
-        });
-    }
-});
 
     </script>
 </body>
