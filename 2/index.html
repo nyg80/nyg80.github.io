@@ -203,11 +203,6 @@
                 font-size: 1.5em;
             }
         }
-        @media (hover: none) and (pointer: coarse) {
-            .image-wrapper:hover img:last-child {
-                opacity: 0 !important;
-            }
-        }
     </style>
 </head>
 <body>
@@ -372,6 +367,28 @@
         // Call on page load and on window resize
         updateInstructionText();
         window.addEventListener('resize', updateInstructionText);
+
+        let isTouchDevice = false;
+
+document.addEventListener('touchstart', () => {
+    isTouchDevice = true;
+});
+
+imageWrappers.forEach(wrapper => {
+    wrapper.addEventListener('click', function(e) {
+        this.classList.toggle('active');
+    });
+
+    if (!isTouchDevice) {
+        wrapper.addEventListener('mouseenter', function() {
+            this.classList.add('active');
+        });
+
+        wrapper.addEventListener('mouseleave', function() {
+            this.classList.remove('active');
+        });
+    }
+});
 
     </script>
 </body>
