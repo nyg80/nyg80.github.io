@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apartment Renovation - Before & After</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            padding: 40px 0px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 4px 0px;
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background-color: #e8e8e8;
+            padding: 30px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border: 1px solid #d0d0d0;
+        }
+
+        header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .room-section {
+            margin-bottom: 50px;
+        }
+
+        .room-section h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background-color: #fff;
+            border: 1px solid #d0d0d0;
+            margin: 0 auto 5px;
+            max-width: 600px;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: auto;
+        }
+
+        .before-img,
+        .after-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .before-img {
+            opacity: 1;
+            transition: opacity 0.2s ease;
+        }
+
+        .after-img {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .image-container.show-after .before-img {
+            opacity: 0;
+        }
+
+        .image-container.show-after .after-img {
+            opacity: 1;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn {
+            flex: 1;
+            max-width: 150px;
+            padding: 12px 24px;
+            border: 2px solid #d0d0d0;
+            background-color: #fff;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #f0f0f0;
+            border-color: #999;
+        }
+
+        .btn.active {
+            background-color: mediumblue;
+            color: #fff;
+            border-color: #333;
+        }
+
+        .btn.active:hover {
+            background-color: #555;
+            border-color: #555;
+        }
+
+        /* Bonus Images */
+        .bonus-images {
+            margin-top: 10px;
+        }
+
+        .bonus-images h3 {
+            color: #000;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .bonus-item {
+            position: relative;
+            background-color: #fff;
+            border: 1px solid #d0d0d0;
+            overflow: hidden;
+        }
+
+        .bonus-wrapper {
+            position: static !important;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .bonus-wrapper img {
+            opacity: 1 !important;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .bonus-caption {
+            padding: 4px;
+            background-color: #f9f9f9;
+            font-size: 14px;
+            color: #000;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Renovation 3</h1>
+            <p>before & after</p>
+        </header>
+
+        <main>
+            <!-- Kitchen -->
+            <section class="room-section">
+                <h2>Kitchen</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/kitchen.jpeg" alt="Kitchen Before" class="before-img">
+                        <img src="after/kitchen.jpeg" alt="Kitchen After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="0">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="0">After</button>
+                    </div>
+                </div>
+                
+                <div class="bonus-images">
+                    <h3>Detail</h3>
+                    <div class="bonus-grid">
+                        <div class="bonus-item">
+                            <div class="image-wrapper bonus-wrapper">
+                                <img src="after/kitchen2.jpeg" alt="Bonus Image 1">
+                            </div>
+                            <p class="bonus-caption">All new upper and lower cabinets, countertop, appliances</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bathroom -->
+            <section class="room-section">
+                <h2>Bathroom</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/bathroom.jpeg" alt="Bathroom Before" class="before-img">
+                        <img src="after/bathroom.jpeg" alt="Bathroom After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="1">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="1">After</button>
+                    </div>
+                </div>
+                
+                <div class="bonus-images">
+                    <h3>Detail</h3>
+                    <div class="bonus-grid">
+                        <div class="bonus-item">
+                            <div class="image-wrapper bonus-wrapper">
+                                <img src="after/bathroom2.jpeg" alt="Bonus Image 1">
+                            </div>
+                            <p class="bonus-caption">All new lighting, medicine cabinet, vanity, toilet</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Front bedroom -->
+            <section class="room-section">
+                <h2>Front Bedroom</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/front.jpeg" alt="Front Bedroom Before" class="before-img">
+                        <img src="after/front.jpeg" alt="Front Bedroom After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="2">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="2">After</button>
+                    </div>
+                </div>
+                
+            </section>
+
+            <!-- Living Room -->
+            <section class="room-section">
+                <h2>Living Room</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/living.jpeg" alt="Living Room Before" class="before-img">
+                        <img src="after/living.jpeg" alt="Living Room After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="3">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="3">After</button>
+                    </div>
+                </div>
+                
+            </section>
+
+            <!-- Middle Bedroom -->
+            <section class="room-section">
+                <h2>Middle Bedroom</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/middle.jpeg" alt="middle Bedroom Before" class="before-img">
+                        <img src="after/middle.jpeg" alt="Middle Bedroom After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="4">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="4">After</button>
+                    </div>
+                </div>
+                
+            </section>
+
+            <!-- Rear Bedroom -->
+            <section class="room-section">
+                <h2>Rear Bedroom</h2>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="before/rear.jpeg" alt="Rear Bedroom Before" class="before-img">
+                        <img src="after/rear.jpeg" alt="Rear Bedroom After" class="after-img">
+                        <div class="image-label before-label">BEFORE</div>
+                        <div class="image-label after-label">AFTER</div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="5">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="5">After</button>
+                    </div>
+                </div>
+                
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const imageWrappers = document.querySelectorAll('.image-container');
+        const beforeButtons = document.querySelectorAll('.btn-before');
+        const afterButtons = document.querySelectorAll('.btn-after');
+
+        // Set dynamic aspect ratio on load
+        imageWrappers.forEach((wrapper) => {
+            const beforeImg = wrapper.querySelector('.before-img');
+            
+            if (beforeImg.complete) {
+                setAspectRatio(beforeImg, wrapper);
+            } else {
+                beforeImg.addEventListener('load', () => {
+                    setAspectRatio(beforeImg, wrapper);
+                });
+            }
+        });
+
+        function setAspectRatio(img, wrapper) {
+            const aspectRatio = img.naturalWidth / img.naturalHeight;
+            const imageContainer = wrapper.querySelector('.image-wrapper');
+            imageContainer.style.aspectRatio = aspectRatio;
+        }
+
+        // Before buttons
+        beforeButtons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                const wrapper = imageWrappers[index];
+                wrapper.classList.remove('show-after');
+                beforeButtons[index].classList.add('active');
+                afterButtons[index].classList.remove('active');
+            });
+        });
+
+        // After buttons
+        afterButtons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                const wrapper = imageWrappers[index];
+                wrapper.classList.add('show-after');
+                beforeButtons[index].classList.remove('active');
+                afterButtons[index].classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
