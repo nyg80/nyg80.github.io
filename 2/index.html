@@ -12,203 +12,193 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            padding: 40px 20px;
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            padding: 40px 0px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 4px 0px;
+            }
         }
 
         .container {
-            width: 100%;
             max-width: 800px;
+            width: 100%;
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         header {
-            background: #e8e8e8;
-            color: #333;
-            padding: 50px 40px;
+            background-color: #e8e8e8;
+            padding: 30px 20px;
             text-align: center;
-            border-bottom: 1px solid #ddd;
+            margin-bottom: 40px;
+            border: 1px solid #d0d0d0;
         }
 
         header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 700;
-            color: #2c2c2c;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 8px;
         }
 
         header p {
-            font-size: 1.1em;
             color: #666;
-        }
-
-        main {
-            padding: 60px 40px;
+            font-size: 14px;
         }
 
         .room-section {
-            margin-bottom: 80px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .room-section:last-child {
-            margin-bottom: 0;
+            margin-bottom: 50px;
         }
 
         .room-section h2 {
-            font-size: 2em;
             color: #333;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #d0d0d0;
-            width: 100%;
+            font-size: 20px;
+            margin-bottom: 15px;
             text-align: center;
-        }
-
-        .image-container {
-            position: relative;
-            width: 100%;
-            cursor: pointer;
         }
 
         .image-wrapper {
             position: relative;
             width: 100%;
-            /* max-width: 500px; */
-            aspect-ratio: auto;
             overflow: hidden;
-            border-radius: 6px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            background-color: #fff;
+            border: 1px solid #d0d0d0;
+            margin: 0 auto 5px;
+            max-width: 600px;
         }
 
+        .image-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: auto;
+        }
 
-        .image-wrapper img {
+        .before-img,
+        .after-img {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 0.3s ease;
+            display: block;
         }
 
         .before-img {
             opacity: 1;
-            z-index: 2;
+            transition: opacity 0.2s ease;
         }
 
         .after-img {
             opacity: 0;
-            z-index: 1;
+            transition: opacity 0.2s ease;
         }
 
-        .image-wrapper:hover .before-img,
-        .image-wrapper.active .before-img {
+        .image-container.show-after .before-img {
             opacity: 0;
         }
 
-        .image-wrapper:hover .after-img,
-        .image-wrapper.active .after-img {
+        .image-container.show-after .after-img {
             opacity: 1;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn {
+            flex: 1;
+            max-width: 150px;
+            padding: 12px 24px;
+            border: 2px solid #d0d0d0;
+            background-color: #fff;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #f0f0f0;
+            border-color: #999;
+        }
+
+        .btn.active {
+            background-color: mediumblue;
+            color: #fff;
+            border-color: #333;
+        }
+
+        .btn.active:hover {
+            background-color: #555;
+            border-color: #555;
+        }
+
+        /* Bonus Images */
+        .bonus-images {
+            margin-top: 10px;
+        }
+
+        .bonus-images h3 {
+            color: #000;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .bonus-item {
+            position: relative;
+            background-color: #fff;
+            border: 1px solid #d0d0d0;
+            overflow: hidden;
         }
 
         .bonus-wrapper {
             position: static !important;
+            width: 100%;
+            overflow: hidden;
         }
 
         .bonus-wrapper img {
-            position: static !important;
             opacity: 1 !important;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-
-        .image-label {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 4px;
-            font-size: 0.9em;
-            font-weight: 600;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .before-label {
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .after-label {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .image-wrapper:hover .before-label,
-        .image-wrapper.active .before-label {
-            opacity: 0;
-        }
-
-        .image-wrapper:hover .after-label,
-        .image-wrapper.active .after-label {
-            opacity: 1;
-        }
-
-        .hint-text {
-            margin-top: 15px;
-            color: #888;
-            font-size: 0.95em;
-            font-style: italic;
+        .bonus-caption {
+            padding: 4px;
+            background-color: #f9f9f9;
+            font-size: 14px;
+            color: #000;
             text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 20px;
-            }
-
-            header {
-                padding: 30px 20px;
-            }
-
-            header h1 {
-                font-size: 1.8em;
-            }
-
-            header p {
-                font-size: 1em;
-            }
-
-            main {
-                padding: 40px 20px;
-            }
-
-            .room-section {
-                margin-bottom: 60px;
-            }
-
-            .room-section h2 {
-                font-size: 1.5em;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>House 2, Second Floor</h1>
+            <h1>Renovation 2</h1>
             <p>before & after</p>
         </header>
 
@@ -223,10 +213,14 @@
                         <div class="image-label before-label">BEFORE</div>
                         <div class="image-label after-label">AFTER</div>
                     </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="0">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="0">After</button>
+                    </div>
                 </div>
-                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+                
                 <div class="bonus-images">
-                    <h3>Additional Detail</h3>
+                    <h3>Detail</h3>
                     <div class="bonus-grid">
                         <div class="bonus-item">
                             <div class="image-wrapper bonus-wrapper">
@@ -248,10 +242,14 @@
                         <div class="image-label before-label">BEFORE</div>
                         <div class="image-label after-label">AFTER</div>
                     </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="1">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="1">After</button>
+                    </div>
                 </div>
-                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+                
                 <div class="bonus-images">
-                    <h3>Additional Detail</h3>
+                    <h3>Detail</h3>
                     <div class="bonus-grid">
                         <div class="bonus-item">
                             <div class="image-wrapper bonus-wrapper">
@@ -273,8 +271,12 @@
                         <div class="image-label before-label">BEFORE</div>
                         <div class="image-label after-label">AFTER</div>
                     </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="2">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="2">After</button>
+                    </div>
                 </div>
-                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+                
             </section>
 
             <!-- Living Room -->
@@ -287,8 +289,12 @@
                         <div class="image-label before-label">BEFORE</div>
                         <div class="image-label after-label">AFTER</div>
                     </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="3">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="3">After</button>
+                    </div>
                 </div>
-                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+                
             </section>
 
             <!-- Middle Bedroom -->
@@ -301,8 +307,12 @@
                         <div class="image-label before-label">BEFORE</div>
                         <div class="image-label after-label">AFTER</div>
                     </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="4">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="4">After</button>
+                    </div>
                 </div>
-                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+                
             </section>
 
             <!-- Rear Bedroom -->
@@ -315,64 +325,59 @@
                         <div class="image-label before-label">BEFORE</div>
                         <div class="image-label after-label">AFTER</div>
                     </div>
+                    <div class="button-group">
+                        <button class="btn btn-before active" data-wrapper-index="5">Before</button>
+                        <button class="btn btn-after" data-wrapper-index="5">After</button>
+                    </div>
                 </div>
-                <p class="hint-text">💡 Hover over the image to see the transformation</p>
+                
             </section>
         </main>
     </div>
 
     <script>
-    // Get all image wrappers
-const imageWrappers = document.querySelectorAll('.image-wrapper:not(.bonus-wrapper)');
+        const imageWrappers = document.querySelectorAll('.image-container');
+        const beforeButtons = document.querySelectorAll('.btn-before');
+        const afterButtons = document.querySelectorAll('.btn-after');
 
-imageWrappers.forEach((wrapper) => {
-    // Set the aspect ratio based on the image dimensions
-    const beforeImg = wrapper.querySelector('.before-img');
-    
-    beforeImg.onload = () => {
-        const aspectRatio = beforeImg.naturalWidth / beforeImg.naturalHeight;
-        wrapper.style.aspectRatio = aspectRatio;
-    };
+        // Set dynamic aspect ratio on load
+        imageWrappers.forEach((wrapper) => {
+            const beforeImg = wrapper.querySelector('.before-img');
+            
+            if (beforeImg.complete) {
+                setAspectRatio(beforeImg, wrapper);
+            } else {
+                beforeImg.addEventListener('load', () => {
+                    setAspectRatio(beforeImg, wrapper);
+                });
+            }
+        });
 
-    // Click listener (for mobile toggle)
-    wrapper.addEventListener('click', function(e) {
-        if (e.target === this || e.target.tagName === 'IMG') {
-            this.classList.toggle('active');
+        function setAspectRatio(img, wrapper) {
+            const aspectRatio = img.naturalWidth / img.naturalHeight;
+            const imageContainer = wrapper.querySelector('.image-wrapper');
+            imageContainer.style.aspectRatio = aspectRatio;
         }
-    });
 
-    // Desktop: hover (check at runtime, not on load)
-    wrapper.addEventListener('mouseenter', function(e) {
-        // Only apply hover if the event is NOT a simulated mouse event from a touch
-        if (e.sourceCapabilities && !e.sourceCapabilities.firesTouchEvents) {
-            this.classList.add('active');
-        }
-    });
+        // Before buttons
+        beforeButtons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                const wrapper = imageWrappers[index];
+                wrapper.classList.remove('show-after');
+                beforeButtons[index].classList.add('active');
+                afterButtons[index].classList.remove('active');
+            });
+        });
 
-    wrapper.addEventListener('mouseleave', function(e) {
-        if (e.sourceCapabilities && !e.sourceCapabilities.firesTouchEvents) {
-            this.classList.remove('active');
-        }
-    });
-});
-
-function updateInstructionText() {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const instructionElements = document.querySelectorAll('.hint-text');
-    
-    instructionElements.forEach(element => {
-        if (isMobile) {
-            element.textContent = "Tap on the image to see the transformation";
-        } else {
-            element.textContent = "Hover over the image to see the transformation";
-        }
-    });
-}
-
-// Call on page load and on window resize
-updateInstructionText();
-window.addEventListener('resize', updateInstructionText);
-
+        // After buttons
+        afterButtons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                const wrapper = imageWrappers[index];
+                wrapper.classList.add('show-after');
+                beforeButtons[index].classList.remove('active');
+                afterButtons[index].classList.add('active');
+            });
+        });
     </script>
 </body>
 </html>
